@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Mart Mollendo | Nuestros Catálogos</title>
+    <link rel="icon" type="image/png" href="logo.png">
+   <style>
+        :root {
+            --rojo-principal: #cc0000;
+            --amarillo-acento: #ffcc00;
+            --oscuro: #1a1a1a;
+            --claro: #f9f9f9;
+            --gris-borde: #e0e0e0;
+            --gris-fondo: #f0f2f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--gris-fondo);
+            color: var(--oscuro);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--rojo-principal);
+            color: white;
+            padding: 1.2rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.6rem;
+            color: var(--amarillo-acento);
+            font-weight: bold;
+        }
+
+        .btn-volver {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            background-color: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-volver:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .layout-catalogo {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .sidebar-catalogos {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--gris-borde);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 90px;
+        }
+
+        .sidebar-catalogos h3 {
+            font-size: 1.1rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gris-borde);
+        }
+
+        .menu-catalogos {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .catalog-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: #444;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            background-color: var(--claro);
+            cursor: pointer;
+        }
+
+        .catalog-item.active {
+            background-color: var(--rojo-principal);
+            color: white;
+            box-shadow: 0 4px 10px rgba(204,0,0,0.2);
+        }
+
+        .catalog-item:hover:not(.active) {
+            background-color: #eee;
+            color: var(--rojo-principal);
+        }
+
+        .content-catalogo {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--gris-borde);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--rojo-principal);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .card-producto {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 2rem auto;
+            border: 1px solid var(--gris-borde);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            background-color: white;
+            padding-bottom: 1.5rem;
+        }
+
+        .card-producto img {
+            width: 100%;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            width: 90%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.03);
+            background-color: #20ba5a;
+        }
+
+        footer {
+            background-color: var(--oscuro);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+
+        .catalogo-section {
+            display: none;
+        }
+        .catalogo-section.active {
+            display: block;
+        }
+
+        @media (max-width: 850px) {
+            .layout-catalogo {
+                grid-template-columns: 1fr;
+                margin: 1rem auto;
+                gap: 1.5rem;
+            }
+            .sidebar-catalogos {
+                position: relative;
+                top: 0;
+                padding: 1rem;
+            }
+            .menu-catalogos {
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 0.5rem;
+                gap: 0.5rem;
+            }
+            .catalog-item {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .content-catalogo {
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <h1>China Mart Mollendo</h1>
+            </div>
+            <a href="index.html" class="btn-volver">🏠 Volver</a>
+        </div>
+    </header>
+
+    <div class="layout-catalogo">
+        
+        <!-- BARRA LATERAL -->
+        <aside class="sidebar-catalogos">
+            <h3>📂 Selección</h3>
+            <ul class="menu-catalogos">
+                <li><a href="#" class="catalog-item active" onclick="mostrarCatalogo(event, 'bebidas')">🧋 Bebidas Asiáticas</a></li>
+                <li><a href="#" class="catalog-item" onclick="mostrarCatalogo(event, 'inciensos')">🪔 Porta Inciensos</a></li>
+                <li><a href="#" class="catalog-item" onclick="mostrarCatalogo(event, 'bolsos')">👛 Carteras, Mochilas y Más</a></li>
+                <li><a href="#" class="catalog-item" onclick="mostrarCatalogo(event, 'mascotas')">🐾 catalogo de mascotas</a></li>
+                <li><a href="#" class="catalog-item" onclick="mostrarCatalogo(event, 'gorras')">🧢 Gorras Damas y Varón</a></li>
+                <li><a href="#" class="catalog-item" onclick="mostrarCatalogo(event, 'flores')">🌸 flores artificiales</a></li>
+            </ul>
+        </aside>
+
+        <!-- PANEL PRINCIPAL -->
+        <main class="content-catalogo">
+            
+            <!-- CATEGORÍA 1: BEBIDAS ASIÁTICAS -->
+            <div id="bebidas" class="catalogo-section active">
+                <h2 class="section-title">🧋 Bebidas Asiáticas</h2>
+                
+                <div class="card-producto">
+                    <img src="bebidas_top.png" alt="Licor Tradicional Chino">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20las%20Bebidas%20Asi%C3%A1ticas" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_joju.png" alt="Cócteles Frutales JOJU">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20C%C3%B3cteles%20JOJU" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_milktea.png" alt="Bebidas de Té con Leche">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20T%C3%A9%20con%20Leche" target="_blank" class="btn-whatsapp">💬 Consultar Sabores</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_soju.png" alt="Soju Coreano Sabores Frutales">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20Soju%20Coreano" target="_blank" class="btn-whatsapp">💬 Consultar Variedad de Soju coreano</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_coreanas.png" alt="Bebidas Coreanas Selección">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20Bebidas%20Coreanas" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_nfc.png" alt="Jugos con Prebióticos NFC">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20Jugos%20NFC" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_rico.png" alt="Bebidas Concentradas Frutales Rico">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20pedir%20las%20Bebidas%20Concentradas%20Rico%20de%20S/%2012.00" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_icetalk_granada.png" alt="Bebida Concentrada de Granada Ice Talk">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20Ice%20Talk%20Granada%20(S/%206.50)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_leche_melon.png" alt="Leche de Melón con Sorbete">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Leche%20de%20Mel%C3%B3n%20(S/%207.00)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_aloe_vera.png" alt="Bebida de Aloe Vera Sabor Natural">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Bebida%20de%20Aloe%20Vera%20(S/%205.50)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_te_con_leche.png" alt="Bebidas con Té y Leche">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20las%20Bebidas%20de%20T%C3%A9%20con%20Leche%20(S/%206.30)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_frutales_coreanas.png" alt="Bebidas Frutales Coreanas">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20las%20Bebidas%20Frutales%20Coreanas%20(S/%206.00)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_jugo_uva.png" alt="Bebida de Jugo de Uva Natural">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Bebida%20de%20Jugo%20de%20Uva%20Natural%20(S/%204.60)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_aloe_vera_lata.png" alt="Bebida de Aloe Vera en Lata">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Bebida%20de%20Aloe%20Vera%20en%20Lata%20(S/%203.90)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_brown_sugar_milk_tea.png" alt="Bebida Brown Sugar Milk Tea">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Brown%20Sugar%20Milk%20Tea%20(S/%208.40)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_te_herbal_jia_duo_bao.png" alt="Té Herbal Jia Duo Bao">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20T%C3%A9%20Herbal%20Jia%20Duo%20Bao%20(1%20x%20S/%205.50%20o%202%20x%20S/%209.00)" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="bebidas_soju_uva.png" alt="Soju Coreano de Uva">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Soju%20Coreano%20de%20Uva" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+            </div>
+
+            <!-- CATEGORÍA 2: INCIENSOS -->
+            <div id="inciensos" class="catalogo-section">
+                <h2 class="section-title">🪔 Porta Inciensos </h2>
+
+                <div class="card-producto">
+                    <img src="inciensos_catalogo_principal.png" alt="Catálogo Porta Inciensos">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20cat%C3%A1logo%20de%20Porta%20Inciensos%20y%20Variedades" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_elefante_y_castillo.png" alt="Porta Incienso Elefante Buda y Árbol Castillo">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Porta%20Incienso%20Elefante%20Buda%20(S/%209.00)%20o%20%C3%81rbol%20y%20Castillo%20(S/%2011.00)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_pecesitos_y_escalera.png" alt="Incienso Pecesitos e Incienso Escalera">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Incienso%20Pecesitos%20(S/%209.00)%20o%20Incienso%20Escalera%20(S/%207.80)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_lago_y_cascada.png" alt="Incienso Lago e Incienso de Cascada">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Incienso%20Lago%20(S/%209.00)%20o%20Incienso%20de%20Cascada%20(S/%2011.00)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_montanas_y_tortuguita.png" alt="Incienso con Montañas y Porta Incienso con Tortuguita">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Incienso%20con%20Monta%C3%B1as%20(S/%209.00)%20o%20Porta%20Incienso%20con%20Tortuguita%20(S/%2011.60)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_montana_y_conos.png" alt="Porta Incienso Montaña Grande y Conos">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Porta%20Incienso%20Monta%C3%B1a%20Grande%20(S/%209.00)%20o%20Porta%20Incienso%20Conos%20(S/%2013.00)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_caracol_y_cascada_lagos.png" alt="Incienso Caracol e Incienso Cascada de Lagos">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Incienso%20Caracol%20(S/%2013.50)%20o%20Incienso%20Cascada%20de%20Lagos%20(S/%209.00)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_arbol_casa_y_circular.png" alt="Incienso Árbol y Casa y Porta Incienso Circular Pequeño">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Incienso%20%C3%81rbol%20y%20Casa%20(S/%2010.60)%20o%20Porta%20Incienso%20Circular%20Peque%C3%B1o%20(S/%207.80)" target="_blank" class="btn-whatsapp">💬 Consultar por estos modelos</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_masalas.png" alt="Inciensos Masalas Exclusivas">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Inciensos%20Masalas%20Exclusivas%20(S/%203.50)" target="_blank" class="btn-whatsapp">💬 Consultar por aromas disponibles</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_varillas_variedad.png" alt="Inciensos de Varillas Variedad">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20las%20variedades%20de%20Inciensos%20en%20Varilla%20(S/%203.50)" target="_blank" class="btn-whatsapp">💬 Consultar por aromas disponibles</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_tulasi_goloka.png" alt="Inciensos Tulasi y Goloka en Conos con Porta Incienso">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Inciensos%20Tulasi%20y%20Goloka%20en%20conos%20(S/%205.00)" target="_blank" class="btn-whatsapp">💬 Consultar por aromas disponibles</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="inciensos_exclusivos_1_50.png" alt="Inciensos Exclusivos S/ 1.50">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Inciensos%20Exclusivos%20(S/%201.50)" target="_blank" class="btn-whatsapp">💬 Consultar por aromas disponibles</a>
+                </div>
+
+                <div class="card-producto">
+                    <img src="incienso_dragon_sandalo.png" alt="Incienso Tulasi Sándalo">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Incienso%20Tulasi%20de%20S%C3%A1ndalo" target="_blank" class="btn-whatsapp">💬 Consultar por Incienso Sándalo</a>
+                </div>
+            </div>
+
+            <!-- CATEGORÍA 3: CARTERAS, MOCHILAS Y MÁS (UNA POR UNA) -->
+            <div id="bolsos" class="catalogo-section">
+                <h2 class="section-title">👛 Carteras, Mochilas y Más</h2>
+                
+                <div class="card-producto">
+                    <img src="bolsos_portada_principal.png" alt="Catálogo Carteras">
+                    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20cat%C3%A1logo%20de%20Carteras" target="_blank" class="btn-whatsapp">💬 Consultar producto</a>
+                </div>
+<div class="card-producto">
+    <img src="cartera_asa_fruncida.png" alt="Cartera de Hombro Asa Fruncida">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20de%20Hombro%20Asa%20Fruncida%20(S/%2063.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_hombro_66.png" alt="Cartera de Hombro Texturizada">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20de%20Hombro%20Texturizada%20(S/%2066.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_negra_cadena_86.png" alt="Cartera Negra con Cadena Dorada">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Negra%20con%20Cadena%20(S/%2086.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_pompom_68_40.png" alt="Cartera de Mano con Pompón y Pañuelo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Pomp%C3%B3n%20(S/%2068.40)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_hombro_nudos_98.png" alt="Cartera de Hombro con Asas Anudadas">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20de%20Hombro%20con%20Nudos%20(S/%2098.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_tejida_panuelo_60.png" alt="Cartera Tote Tejida con Pañuelo Decorativo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Tejida%20con%20Pa%C3%B1uelo%20(S/%2060.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_tote_monedero_90.png" alt="Cartera Tote de Hombro con Monedero">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Tote%20con%20Monedero%20(S/%2090.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_estructurada_panuelo_72.png" alt="Cartera Estructurada con Pañuelo Fashion Queen">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Estructurada%20con%20Pa%C3%B1uelo%20(S/%2072.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_bicolor_correa_68_40.png" alt="Cartera Bicolor con Correa Frontal">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Bicolor%20con%20Correa%20Frontal%20(S/%2068.40)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_llavero_estrella_73_80.png" alt="Cartera Structured con Llavero de Estrella">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Llavero%20de%20Estrella%20(S/%2073.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_asa_metalica_colgante_73_80.png" alt="Cartera con Asa Metálica y Colgante de Cuentas">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Asa%20Met%C3%A1lica%20y%20Colgante%20(S/%2073.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_texturizada_estrella_82.png" alt="Cartera Texturizada con Llavero de Estrella">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Texturizada%20con%20Llavero%20de%20Estrella%20(S/%2082.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_lazo_perla_70_20.png" alt="Cartera Structured con Lazo y Colgante de Perla">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Lazo%20y%20Perla%20(S/%2070.20)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_solapa_correas_73_80.png" alt="Cartera con Solapa y Hebillas Decorativas">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Solapa%20y%20Hebillas%20(S/%2073.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_colgante_flor_73_80.png" alt="Cartera Structured con Colgante de Flor">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Colgante%20de%20Flor%20(S/%2073.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_bolsillo_frontal_61_20.png" alt="Cartera de Hombro con Bolsillo Frontal">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20de%20Hombro%20con%20Bolsillo%20Frontal%20(S/%2061.20)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_solapa_monedero_redondo_50_40.png" alt="Cartera con Solapa y Monedero Redondo Colgante">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Solapa%20y%20Monedero%20Redondo%20(S/%2050.40)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="canguro_deportivo_34.png" alt="Canguro Deportivo Multibolsillos">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Canguro%20Deportivo%20(S/%2034.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="bolso_viaje_bobo_75.png" alt="Bolso de Viaje Espacioso BOBO">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Bolso%20de%20Viaje%20BOBO%20(S/%2075.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="lonchera_termica_bicolor_39_60.png" alt="Lonchera Térmica Bicolor Wellness">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Lonchera%20T%C3%A9rmica%20Bicolor%20(S/%2039.60)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="lonchera_termica_bolsillo_39_60.png" alt="Lonchera Térmica Unicolor con Bolsillo Frontal">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Lonchera%20T%C3%A9rmica%20Unicolor%20(S/%2039.60)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="canguro_negro_tactico_37_80.png" alt="Canguro Cruzado Táctico Negro Multibolsillos">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Canguro%20T%C3%A1ctico%20Negro%20(S/%2037.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="morral_compacto_megatech_21.png" alt="Morral Compacto Unisex MEGATECH">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Morral%20Compacto%20MEGATECH%20(S/%2021.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mochila_antirrobo_zippers_82.png" alt="Mochila Antirrobo Urbana con Cierres Laterales">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Mochila%20Antirrobo%20Urbana%20(S/%2082.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mochila_escolar_fashionbag_55_80.png" alt="Mochila Escolar Fashionbag con Llavero Miao">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Mochila%20Fashionbag%20(S/%2055.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mochila_escolar_start_63.png" alt="Mochila Escolar Juvenil Start">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Mochila%20Escolar%20Start%20(S/%2063.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mochila_sweet_bakery_cartuchera_63.png" alt="Mochila Escolar Sweet Bakery con Cartuchera Colgante">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Mochila%20Sweet%20Bakery%20(S/%2063.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mochila_oso_peluche_jialejiemei_60.png" alt="Mochila Escolar JIALEJIEMEI con Peluche de Oso">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Mochila%20con%20Peluche%20de%20Oso%20(S/%2060.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="set_mochila_panal_lonchera_64_80.png" alt="Set de Mochila Texturizada con Lonchera y Cartuchera">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Set%20de%20Mochila%20con%20Lonchera%20y%20Cartuchera%20(S/%2064.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mochila_capibara_accesorios_80_80.png" alt="Mochila Escolar Capibara con Llavero y Tarjetero Transparent">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Mochila%20de%20Capibara%20(S/%2080.80)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_morral_solapa_correa_85.png" alt="Cartera Morral con Solapa y Correa Labrada">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20Morral%20con%20Solapa%20(S/%2085.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="cartera_hobo_panuelo_monedero_85.png" alt="Cartera de Hombro Elegante con Pañuelo y Monedero Extraíble">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Cartera%20con%20Pa%C3%B1uelo%20y%20Monedero%20(S/%2085.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="bolso_tote_loneta_estampado_8.png" alt="Bolso Tote Bag de Loneta Estampado">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Bolso%20Tote%20Bag%20de%20Loneta%20(S/%208.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="bolso_tote_canvas_disenos_9.png" alt="Bolso Tote Bag de Tela Canvas con Diseños Variados">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Bolso%20Tote%20Bag%20de%20Canvas%20(S/%209.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="mascota_dragon_china_mart.png" alt="Mascota Dragón China Mart Mollendo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20mas%20informacion%20sobre%20China%20Mart" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+            </div>
+
+            <!-- CATEGORÍA 4: MASCOTAS -->
+            <div id="mascotas" class="catalogo-section">
+                <h2 class="section-title">🐾 catalogos de mascotas.</h2>
+
+                <div class="card-producto">
+    <img src="portada_catalogo_mascotas.png" alt="Catálogo de Mascotas China Mart - Ropa, Pañales y Recoger Popo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20productos%20del%20Cat%C3%A1logo%20de%20Mascotas" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_para_mascotas_talla_universal_7.png" alt="Ropa para Mascotas Talla Universal">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20Talla%20Universal%20(S/%207.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_mascotas_vaca_y_friends_16_18.png" alt="Ropa para Mascotas Diseños Vaca y Friends">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20(S/%2016.00%20-%20S/%2018.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_mascotas_happy_perrito_18.png" alt="Ropa para Mascotas Diseños Happy y Perrito con Faldita">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20(S/%2018.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_mascotas_dinosaurio_y_alas_24_26.png" alt="Ropa para Mascotas Capucha Dinosaurio y Vestido con Alas">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20(S/%2024.00%20-%20S/%2026.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_mascotas_chaleco_bicolor_16.png" alt="Ropa para Mascotas Chaleco Bicolor Talla S-XXL">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20Chaleco%20Bicolor%20(S/%2016.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_mascotas_chaleco_peluche_arnes_16.png" alt="Ropa para Mascotas Chaleco de Peluche con Anillo para Correa Talla S-XXL">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20Chaleco%20de%20Peluche%20(S/%2016.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="ropa_mascotas_mameluco_y_chaleco_11_50_19.png" alt="Ropa para Mascotas Mameluco Acolchado y Chaleco Polar">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Ropa%20para%20Mascotas%20(S/%2011.50%20-%20S/%2019.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="bano_grass_sintetico_mascotas_32_54_50.png" alt="Baño de Grass Sintético para Mascotas">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Ba%C3%B1o%20de%20Grass%20Sint%C3%A9tico%20(S/%2032.00%20-%20S/%2054.50)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="hierba_para_gatos_regulador_apetito_3_60_8.png" alt="Hierba para Gatos Catnip y Regulador de Apetito">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Hierba%20para%20Gatos%20/%20Regulador%20de%20Apetito%20(S/%203.60%20-%20S/%208.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="panales_para_perro_training_pads_30.png" alt="Pañales Sabanillas Entrenadoras para Perro Talla M y L">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Pa%C3%B1ales%20para%20Perro%20(S/%2030.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="panales_para_perro_training_pads_xl_30.png" alt="Pañales Sabanillas Entrenadoras para Perro Talla XL">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Pa%C3%B1ales%20para%20Perro%20Talla%20XL%20(S/%2030.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gymnasio_para_gatos_rascador_237_280.png" alt="Gimnasio para Gatos Rascador Torre">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Gimnasio%20para%20Gatos%20(S/%20237.00%20-%20S/%20280.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gimnasio_rascador_gatos_67cm_118.png" alt="Gimnasio Rascador para Gatos 67 cm">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Gimnasio%20Rascador%20para%20Gatos%2067cm%20(S/%20118.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="areneros_y_recogedores_para_gatos_2_30.png" alt="Areneros y Recogedores de Arena para Gatos">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Areneros%20y%20Recogedores%20(S/%202.00%20-%20S/%2030.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="areneros_con_pala_y_recogedores_gato_2_36.png" alt="Areneros para Gatos con Pala y Recogedores de Arena">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Areneros%20y%20Recogedores%20(S/%202.00%20-%20S/%2036.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="recogedores_de_arena_para_gato_2.png" alt="Recogedores de Arena para Gatos">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20los%20Recogedores%20de%20Arena%20para%20Gato%20(S/%202.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+            </div>
+
+            <!-- CATEGORÍA 5: GORRAS -->
+            <div id="gorras" class="catalogo-section">
+                <h2 class="section-title">🧢 Catalogo de gorras Damas y Varón</h2>
+
+                <div class="card-producto">
+    <img src="portada_gorras_dama_y_varon.png" alt="Portada Catálogo de Gorras Dama y Varón">
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_bordada_20.png" alt="Gorra para Dama Bordada Adventure / Mood">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_peruana_bonita_army_20.png" alt="Gorra para Dama Peruana Bonita / ARMY">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_gatito_negro_20.png" alt="Gorra para Dama Bordada Gatito">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20Gatito%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_oso_mariposa_brillantes_20.png" alt="Gorra para Dama Apliques Brillantes Oso y Mariposa">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20con%20Brillantes%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_blue_shark_gatito_20.png" alt="Gorra para Dama Blue Shark / Gatito">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_new_york_estatua_libertad_20.png" alt="Gorra para Dama Bordada New York">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20New%20York%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_new_york_girl_power_20.png" alt="Gorra para Dama New York / Girl Power">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_dama_new_york_warehouse_oso_brillantes_20.png" alt="Gorra para Dama New York Warehouse / Oso Brillantes">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Dama%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_blue_shark_verde_20.png" alt="Gorra para Varón Blue Shark Verde">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20Blue%20Shark%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_blue_shark_negro_azul_20.png" alt="Gorra para Varón Blue Shark Negro / Azul">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20Blue%20Shark%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_blue_shark_blanco_vino_20.png" alt="Gorra para Varón Blue Shark Blanco / Vino">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20Blue%20Shark%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_shark_celeste_blanco_20.png" alt="Gorra para Varón Shark Celeste / Blanco">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20Shark%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_shark_azul_gris_20.png" alt="Gorra para Varón Shark Azul / Gris">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20Shark%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_blue_shark_blanco_alaska_20.png" alt="Gorra para Varón Blue Shark Blanco / Alaska">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_new_york_warehouse_azul_20.png" alt="Gorra para Varón New York Warehouse Azul">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20New%20York%20Warehouse%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_new_york_warehouse_rojo_blanco_20.png" alt="Gorra para Varón New York Warehouse Rojo / Blanco">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20New%20York%20Warehouse%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+                <div class="card-producto">
+    <img src="gorra_varon_blue_shark_negro_blanco_gris_20.png" alt="Gorra para Varón Blue Shark Negro / Blanco / Gris">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Gorra%20para%20Var%C3%B3n%20Blue%20Shark%20(S/%2020.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+            </div>
+<div id="flores" class="catalogo-section">
+    <h2 class="section-title">🌸 Flores artificiales</h2>
+
+<div class="card-producto">
+    <img src="arbol.png" alt="Mini Árbol Decorativo de Ajíes - China Mart Mollendo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20el%20Mini%20%C3%81rbol%20Decorativo%20de%20Aj%C3%ADes" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+    
+<div class="card-producto">
+    <img src="flores_artificiales_maceta.png" alt="Flores Artificiales Decorativas en Maceta - China Mart Mollendo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20las%20Macetas%20de%20Flores%20Artificiales%20(S/%2017.00)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+    <!-- Rosas Artificiales en Maceta Texturizada -->
+<div class="card-producto">
+    <img src="rosas_artificiales_maceta.png" alt="Rosas Artificiales Decorativas en Maceta - China Mart Mollendo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20las%20Macetas%20de%20Rosas%20Artificiales%20(S/%2013.60)" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+    <!-- Orquídea Artificial en Maceta -->
+<div class="card-producto">
+    <img src="orquidea_artificial_maceta.png" alt="Orquídea Artificial Decorativa en Maceta - China Mart Mollendo">
+    <a href="https://wa.me/51914236008?text=Hola,%20quisiera%20consultar%20por%20la%20Orqu%C3%ADdea%20Artificial" target="_blank" class="btn-whatsapp">
+        💬 Consultar producto
+    </a>
+</div>
+</div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 China Mart Mollendo. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function mostrarCatalogo(event, idSeccion) {
+            event.preventDefault();
+
+            const secciones = document.querySelectorAll('.catalogo-section');
+            secciones.forEach(sec => sec.classList.remove('active'));
+
+            const items = document.querySelectorAll('.catalog-item');
+            items.forEach(item => item.classList.remove('active'));
+
+            document.getElementById(idSeccion).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
