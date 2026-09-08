@@ -1,910 +1,541 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ChinaMart Mollendo</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: #11151a;
-            color: #171a1f;
+            margin: 0;
+            font-family: Arial, sans-serif;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .header {
-            height: 114px;
-            background: #11151a;
+        header {
+            background-color: #15191d;
             color: white;
+
+            height: 110px;
 
             display: flex;
             align-items: center;
 
-            padding: 0 5%;
-            gap: 50px;
-
-            position: relative;
-            z-index: 10;
+            padding: 0 50px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            min-width: 360px;
+
+            width: 350px;
         }
 
-        .logo-bag {
-            width: 82px;
-            height: 76px;
 
-            background: #ef2029;
+        .logo-cuadro {
+            background-color: #ed1c24;
 
-            border-radius: 7px;
+            width: 70px;
+            height: 70px;
 
-            display: grid;
-            place-items: center;
+            border-radius: 5px;
 
-            font-size: 46px;
-            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-            position: relative;
+            font-size: 35px;
         }
 
-        .logo-bag::before {
-            content: "";
 
-            position: absolute;
-
-            top: -20px;
-            left: 24px;
-
-            width: 31px;
-            height: 30px;
-
-            border: 5px solid #ef2029;
-            border-bottom: 0;
-
-            border-radius: 20px 20px 0 0;
+        .logo-texto {
+            margin-left: 15px;
         }
 
-        .logo-text {
-            font-size: 47px;
-            font-weight: 800;
 
-            line-height: 0.9;
+        .logo-texto h2 {
+            margin: 0;
 
-            letter-spacing: -2px;
+            font-size: 35px;
         }
 
-        .logo-text span {
-            color: #ef2029;
+
+        .logo-texto h2 span {
+            color: red;
         }
 
-        .logo-sub {
-            display: block;
+
+        .logo-texto p {
+            margin: 5px 0;
 
             text-align: center;
 
-            font-size: 17px;
-
-            letter-spacing: 7px;
-
-            margin-top: 10px;
-
-            font-weight: 500;
+            letter-spacing: 5px;
         }
 
-        .search {
-            flex: 1;
+        .buscador {
+            width: 350px;
 
-            max-width: 390px;
+            background-color: #33383d;
 
-            height: 58px;
+            border: 1px solid #777;
 
-            border: 1px solid #72767b;
+            border-radius: 30px;
 
-            border-radius: 35px;
-
-            background: #30343a;
+            padding: 15px 20px;
 
             color: white;
-
-            display: flex;
-
-            align-items: center;
-
-            padding: 0 22px;
-
-            font-size: 16px;
-        }
-
-        .search input {
-            border: 0;
-            outline: 0;
-
-            background: transparent;
-
-            color: white;
-
-            width: 100%;
-
-            font-size: 16px;
-        }
-
-        .search input::placeholder {
-            color: #c5c5c5;
-        }
-
-        .search button {
-            border: 0;
-
-            background: none;
-
-            color: white;
-
-            font-size: 25px;
-
-            cursor: pointer;
         }
 
         nav {
-            display: flex;
-
-            align-items: center;
-
-            gap: 34px;
-
-            font-size: 16px;
-
-            white-space: nowrap;
+            margin-left: 40px;
         }
+
 
         nav a {
-            padding: 34px 0 25px;
+            color: white;
 
-            position: relative;
+            text-decoration: none;
+
+            margin-left: 30px;
+
+            font-size: 16px;
         }
 
-        nav a.active::after {
-            content: "";
 
-            position: absolute;
-
-            left: 0;
-            right: 0;
-
-            bottom: 0;
-
-            height: 5px;
-
-            background: #ef2029;
+        nav a:hover {
+            color: red;
         }
 
-        .icons {
+        .principal {
+
+            height: 700px;
+
+            background-color: #f5f1e8;
+
             display: flex;
 
-            gap: 24px;
-
-            font-size: 28px;
-
             align-items: center;
-        }
 
-        .cart {
-            position: relative;
-        }
-
-        .badge {
-            position: absolute;
-
-            right: -13px;
-            top: -9px;
-
-            background: #ef2029;
-
-            border-radius: 50%;
-
-            font-size: 12px;
-
-            padding: 5px 8px;
-
-            font-weight: 700;
-        }
-
-        .hero {
-            min-height: 820px;
+            padding: 0 80px;
 
             position: relative;
 
             overflow: hidden;
-
-            background:
-                radial-gradient(
-                    circle at 32% 30%,
-                    rgba(255,255,255,.98),
-                    rgba(247,244,232,.9) 34%,
-                    rgba(225,215,190,.7) 54%,
-                    rgba(172,132,91,.55) 100%
-                ),
-                linear-gradient(
-                    100deg,
-                    #faf8ef 0%,
-                    #f0e9d9 45%,
-                    #9c7554 100%
-                );
         }
 
-        .hero::before {
-            content: "";
+        .texto {
 
-            position: absolute;
-
-            inset: 0;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,.95) 0%,
-                    rgba(255,255,255,.84) 38%,
-                    rgba(255,255,255,0) 68%
-                );
-        }
-
-        .content {
-            position: relative;
+            width: 45%;
 
             z-index: 2;
-
-            width: 90%;
-
-            max-width: 1250px;
-
-            margin: auto;
-
-            padding-top: 90px;
         }
 
-        .eyebrow {
-            font-family: Georgia, serif;
+
+        .frase {
+
+            color: #d71920;
+
+            font-size: 32px;
 
             font-style: italic;
 
-            color: #d51e27;
+            font-family: Georgia, serif;
 
-            font-size: 38px;
-
-            font-weight: 700;
-
-            max-width: 520px;
-
-            line-height: 1.05;
+            font-weight: bold;
         }
 
-        .eyebrow::after {
-            content: "";
 
-            display: block;
+        .texto h1 {
 
-            width: 275px;
+            font-size: 50px;
 
-            height: 8px;
-
-            background: #df2028;
-
-            transform: skewX(-25deg);
-
-            margin: 15px 0 20px 40px;
+            margin: 20px 0;
         }
 
-        h1 {
-            font-size: 58px;
 
-            line-height: .95;
+        .texto h1 span {
 
-            max-width: 600px;
-
-            font-weight: 800;
-
-            letter-spacing: -2px;
-        }
-
-        h1 span {
             display: block;
 
             color: #d71920;
 
-            font-size: 78px;
-
             font-family: Georgia, serif;
 
             font-style: italic;
 
-            letter-spacing: -1px;
-
-            margin-top: 8px;
+            font-size: 70px;
         }
 
-        .desc {
+
+        .descripcion {
+
             font-size: 20px;
 
-            line-height: 1.45;
-
-            max-width: 500px;
-
-            margin: 22px 0 25px;
+            line-height: 1.5;
         }
 
-        .features {
+        .caracteristicas {
+
             display: flex;
 
-            gap: 27px;
-
-            margin: 15px 0 30px;
+            margin-top: 30px;
         }
 
-        .feature {
-            width: 105px;
+
+        .caracteristica {
 
             text-align: center;
 
-            font-weight: 600;
+            margin-right: 25px;
 
-            line-height: 1.25;
+            font-weight: bold;
         }
 
-        .circle {
-            width: 62px;
-            height: 62px;
 
-            border: 3px solid #e31e27;
+        .circulo {
+
+            width: 55px;
+            height: 55px;
+
+            border: 3px solid #e21b23;
 
             border-radius: 50%;
 
-            display: grid;
-
-            place-items: center;
-
-            margin: 0 auto 9px;
-
-            color: #e31e27;
-
-            font-size: 27px;
-        }
-
-        .buy {
-            display: inline-flex;
+            display: flex;
 
             align-items: center;
-
-            gap: 22px;
-
-            background: #e51c25;
-
-            color: white;
-
-            border-radius: 40px;
-
-            padding: 17px 29px;
-
-            font-size: 24px;
-
-            font-weight: 800;
-
-            border: none;
-
-            cursor: pointer;
-
-            box-shadow: 0 7px 20px rgba(0,0,0,.12);
-
-            transition: .2s;
-        }
-
-        .buy:hover {
-            transform: translateY(-2px);
-
-            background: #c9151d;
-        }
-
-        .product {
-            position: absolute;
-
-            z-index: 3;
-
-            right: 2%;
-
-            bottom: 35px;
-
-            width: min(57%, 800px);
-
-            filter:
-                drop-shadow(
-                    0 20px 18px rgba(0,0,0,.18)
-                );
-        }
-
-        .product img {
-            width: 100%;
-
-            display: block;
-        }
-
-        .bottom {
-            height: 100px;
-
-            background: #11151a;
-
-            color: white;
-
-            position: relative;
-
-            display: flex;
 
             justify-content: center;
 
-            align-items: center;
+            color: #e21b23;
 
-            letter-spacing: 5px;
+            font-size: 25px;
 
-            font-size: 14px;
+            margin: auto;
+        }
+        
+        .boton {
 
-            font-weight: 600;
+            background-color: #e51c25;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 30px;
+
+            padding: 15px 30px;
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+            margin-top: 25px;
+
+            cursor: pointer;
         }
 
-        .bottom::before {
-            content: "";
 
-            position: absolute;
+        .boton:hover {
 
-            top: -34px;
-
-            left: -2%;
-
-            width: 104%;
-
-            height: 55px;
-
-            background: #e51c25;
-
-            border-radius:
-                50% 50% 0 0 /
-                100% 100% 0 0;
+            background-color: #b9151b;
         }
 
-        .bottom::after {
-            content: "";
+        .producto {
 
-            position: absolute;
+            width: 55%;
 
-            top: -20px;
-
-            left: -2%;
-
-            width: 104%;
-
-            height: 45px;
-
-            background: #11151a;
-
-            border-radius:
-                50% 50% 0 0 /
-                100% 100% 0 0;
+            text-align: center;
         }
 
-        .bottom span {
-            position: relative;
 
-            z-index: 2;
+        .producto img {
+
+            width: 100%;
+
+            max-width: 700px;
         }
 
-        @media (max-width: 1100px) {
+        footer {
 
-            .header {
-                gap: 20px;
-            }
+            background-color: #15191d;
 
-            .logo {
-                min-width: auto;
-            }
+            color: white;
 
-            .logo-text {
-                font-size: 34px;
-            }
+            text-align: center;
 
-            .logo-bag {
-                width: 65px;
-                height: 65px;
-            }
+            padding: 30px;
 
-            nav {
-                gap: 15px;
-            }
+            font-weight: bold;
 
-            .icons {
-                gap: 12px;
-            }
-
-            .product {
-                opacity: .35;
-
-                width: 70%;
-
-                right: -8%;
-            }
-
-            .content {
-                padding-top: 65px;
-            }
+            letter-spacing: 3px;
         }
 
-        @media (max-width: 760px) {
+        @media (max-width: 800px) {
 
-            .header {
+            header {
+
                 height: auto;
 
-                padding: 18px 5%;
+                flex-direction: column;
 
-                flex-wrap: wrap;
-
-                gap: 15px;
+                padding: 20px;
             }
+
 
             .logo {
-                width: 100%;
 
-                justify-content: center;
+                width: auto;
+
+                margin-bottom: 20px;
             }
 
-            .logo-text {
-                font-size: 32px;
+
+            .buscador {
+
+                width: 80%;
+
+                margin-bottom: 20px;
             }
 
-            .logo-bag {
-                width: 58px;
-                height: 58px;
-
-                font-size: 32px;
-            }
-
-            .logo-sub {
-                font-size: 12px;
-
-                letter-spacing: 5px;
-            }
-
-            .search {
-                order: 3;
-
-                max-width: none;
-
-                width: 100%;
-            }
 
             nav {
+
+                margin: 0;
+            }
+
+
+            nav a {
+
+                margin: 10px;
+            }
+
+
+            .principal {
+
+                height: auto;
+
+                flex-direction: column;
+
+                padding: 50px 20px;
+            }
+
+
+            .texto {
+
                 width: 100%;
+
+                text-align: center;
+            }
+
+
+            .texto h1 {
+
+                font-size: 40px;
+            }
+
+
+            .texto h1 span {
+
+                font-size: 55px;
+            }
+
+
+            .caracteristicas {
 
                 justify-content: center;
-
-                font-size: 13px;
-
-                gap: 18px;
             }
 
-            .icons {
-                display: none;
-            }
 
-            .hero {
-                min-height: 850px;
-            }
+            .producto {
 
-            .content {
-                width: 88%;
-
-                padding-top: 55px;
-            }
-
-            .eyebrow {
-                font-size: 27px;
-            }
-
-            .eyebrow::after {
-                width: 190px;
-
-                height: 6px;
-            }
-
-            h1 {
-                font-size: 40px;
-
-                max-width: 500px;
-            }
-
-            h1 span {
-                font-size: 58px;
-            }
-
-            .desc {
-                font-size: 16px;
-
-                max-width: 400px;
-            }
-
-            .features {
-                gap: 8px;
-            }
-
-            .feature {
-                font-size: 12px;
-
-                width: 78px;
-            }
-
-            .circle {
-                width: 50px;
-                height: 50px;
-
-                font-size: 21px;
-            }
-
-            .buy {
-                font-size: 18px;
-
-                padding: 14px 22px;
-            }
-
-            .product {
                 width: 100%;
 
-                right: -14%;
-
-                bottom: 10px;
-
-                opacity: 1;
+                margin-top: 30px;
             }
 
-            .bottom {
-                font-size: 10px;
-
-                letter-spacing: 2px;
-            }
         }
 
     </style>
+
 </head>
 
 
 <body>
 
-<header class="header">
+    <header>
 
-    <a class="logo" href="#">
+        <div class="logo">
 
-        <div class="logo-bag">
-            龍
-        </div>
-
-        <div>
-
-            <div class="logo-text">
-                CHINA<span>MART</span>
+            <div class="logo-cuadro">
+                龍
             </div>
 
-            <div class="logo-sub">
-                MOLLENDO
+
+            <div class="logo-texto">
+
+                <h2>
+                    CHINA<span>MART</span>
+                </h2>
+
+                <p>
+                    MOLLENDO
+                </p>
+
             </div>
 
         </div>
-
-    </a>
-
-    <form
-        class="search"
-        onsubmit="return false"
-    >
 
         <input
-            id="searchInput"
-            type="search"
+            class="buscador"
+            type="text"
             placeholder="Buscar productos..."
         >
 
-        <button
-            onclick="buscar()"
-            aria-label="Buscar"
-        >
-            ⌕
-        </button>
+        <nav>
 
-    </form>
+            <a href="#">
+                Inicio
+            </a>
 
-    <nav>
+            <a href="#">
+                Categorías
+            </a>
 
-        <a
-            class="active"
-            href="#"
-        >
-            Inicio
-        </a>
+            <a href="#">
+                Ofertas
+            </a>
 
-        <a href="#">
-            Categorías
-        </a>
+            <a href="#">
+                Contacto
+            </a>
 
-        <a href="#">
-            Ofertas
-        </a>
+        </nav>
 
-        <a href="#">
-            Contacto
-        </a>
 
-    </nav>
+    </header>
 
-    <div class="icons">
+    <section class="principal">
 
-        <span>
-            ♙
-        </span>
+        <div class="texto">
 
-        <span class="cart">
 
-            🛒
+            <div class="frase">
 
-            <b
-                class="badge"
-                id="cartCount"
+                Decora tu espacio con
+                <br>
+
+                estilo y armonía
+
+            </div>
+
+
+            <h1>
+
+                ÁRBOL DECORATIVO
+
+                <span>
+                    DE AJÍ
+                </span>
+
+            </h1>
+
+
+            <p class="descripcion">
+
+                Un toque de naturaleza y buena energía
+                en tu hogar u oficina.
+
+            </p>
+
+            <div class="caracteristicas">
+
+
+                <div class="caracteristica">
+
+                    <div class="circulo">
+                        ✓
+                    </div>
+
+                    Diseño
+                    <br>
+                    realista
+
+                </div>
+
+
+                <div class="caracteristica">
+
+                    <div class="circulo">
+                        ★
+                    </div>
+
+                    Ideal para
+                    <br>
+                    interiores
+
+                </div>
+
+
+                <div class="caracteristica">
+
+                    <div class="circulo">
+                        ✓
+                    </div>
+
+                    Materiales
+                    <br>
+                    de calidad
+
+                </div>
+
+
+                <div class="caracteristica">
+
+                    <div class="circulo">
+                        +
+                    </div>
+
+                    Perfecto
+                    <br>
+                    para regalar
+
+                </div>
+
+
+            </div>
+
+            <button
+                class="boton"
+                onclick="agregarCarrito()"
             >
-                0
-            </b>
 
-        </span>
+                🛒 ¡Llévalo ahora!
 
-    </div>
-
-</header>
-
-<main class="hero">
-
-    <section class="content">
-
-
-        <div class="eyebrow">
-
-            Decora tu espacio con
-            <br>
-
-            estilo y armonía
-
-        </div>
-
-
-        <h1>
-
-            ÁRBOL DECORATIVO
-
-            <span>
-                DE AJÍ
-            </span>
-
-        </h1>
-
-
-        <p class="desc">
-
-            Un toque de naturaleza y buena energía
-            en tu hogar u oficina.
-
-        </p>
-
-        <div class="features">
-
-
-            <div class="feature">
-
-                <div class="circle">
-                    ◒
-                </div>
-
-                Diseño
-                <br>
-                realista
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="circle">
-                    ⌂
-                </div>
-
-                Ideal para
-                <br>
-                interiores
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="circle">
-                    ✓
-                </div>
-
-                Materiales
-                <br>
-                de calidad
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="circle">
-                    ✦
-                </div>
-
-                Perfecto
-                <br>
-                para regalar
-
-            </div>
+            </button>
 
 
         </div>
+        
+        <div class="producto">
 
-        <button
-            class="buy"
-            onclick="agregarAlCarrito()"
-        >
+            <img
+                src="arbol-aji.png"
+                alt="Árbol decorativo de ají"
+            >
 
-            🛒
-
-            ¡Llévalo ahora!
-
-            <b>
-                ›
-            </b>
-
-        </button>
+        </div>
 
 
     </section>
 
-    <div class="product">
-
-        <img
-            src="arbol-aji.png"
-            alt="Árbol decorativo de ají"
-        >
-
-    </div>
-
-
-</main>
-
-<footer class="bottom">
-
-    <span>
+    <footer>
 
         CALIDAD
         &nbsp; • &nbsp;
@@ -914,53 +545,19 @@
 
         LOS MEJORES PRECIOS
 
-    </span>
+    </footer>
 
-</footer>
+    <script>
 
-<script>
+        function agregarCarrito() {
 
-    let carrito = 0;
-
-
-    function agregarAlCarrito() {
-
-        carrito++;
-
-        document.getElementById(
-            "cartCount"
-        ).textContent = carrito;
-
-    }
-
-
-    function buscar() {
-
-        const texto =
-            document
-            .getElementById("searchInput")
-            .value
-            .trim();
-
-
-        if (texto) {
-
-            alert(
-                "Buscando: " + texto
-            );
-
-        } else {
-
-            alert(
-                "Escribe un producto para buscar."
-            );
+            alert("Producto agregado al carrito");
 
         }
 
-    }
-
-</script>
+    </script>
 
 
 </body>
+
 </html>
