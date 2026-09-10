@@ -206,6 +206,8 @@
             font-weight: bold;
             margin-top: 25px;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .boton:hover {
@@ -483,9 +485,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Llévalo ahora!
-                    </button>
+                    <a class="boton" href="categorias.html#flores">🌸 Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -527,9 +527,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Ver producto!
-                    </button>
+                    <a class="boton" href="categorias.html#bebidas">🧋 Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -571,9 +569,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Ver producto!
-                    </button>
+                    <a class="boton" href="categorias.html#inciensos">🪔 Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -615,9 +611,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Ver producto!
-                    </button>
+                    <a class="boton" href="categorias.html#bolsos">👛 Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -659,9 +653,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Ver producto!
-                    </button>
+                    <a class="boton" href="categorias.html#mascotas">🐾 Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -703,9 +695,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Ver producto!
-                    </button>
+                    <a class="boton" href="categorias.html#gorras">🧢 Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -747,9 +737,7 @@
                         </div>
                     </div>
 
-                    <button class="boton" onclick="agregarCarrito()">
-                        🛒 ¡Ver producto!
-                    </button>
+                    <a class="boton" href="categorias.html#gimnasio%20y%20deportes">🏋️ Ver categoría</a>
                 </div>
 
                 <div class="producto">
@@ -823,10 +811,6 @@
         function reiniciarCarrusel() {
             clearInterval(temporizador);
             iniciarCarrusel();
-        }
-
-        function agregarCarrito() {
-            alert("Producto seleccionado");
         }
 
         iniciarCarrusel();
